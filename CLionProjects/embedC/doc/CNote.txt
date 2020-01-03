@@ -1,0 +1,542 @@
+1. Q.front = 0; is not a simple initializer, it is executable code; it cannot occur outside of a function.
+Use a proper initializer for Q. or with named initializer syntax (not available in all compilers, and as yet only in C struct Queue Q = {.front = 0, .rear = 0};
+
+2.  c编译器会自动查找 c++编译器不会自动查找，需要提示（include）
+
+3. include可以包含任何后缀名文件，当作文本文件解析，
+ 	作用，将文件拷贝到当前文件，<>系统目录下查找文件 ""先在当前目录下查找，没找到再去系统目录下寻找
+4. 当前解决方案下，源文件不可以重名
+
+5. c++编译比c编译严格
+	c语言不返回不会出错，但是会出现垃圾数据
+
+6. c内存模型
+	6.1 命令：
+		size build.o命令查看可执行文件段大小
+		strings build.o 命令 查看只读数据段
+		nm build.o查看静态空间段名
+
+	6.2 代码空间
+		0xFFFFF
+		内核空间
+		运行时函数内部使用的变量，函数调用完毕之后就不能访问内存
+		运行时栈空间 		局部变量
+
+		运行时可以自由分配和释放
+		运行时堆空间		malloc
+
+		只读空间 整个程序执行结束后释放内存
+		全局变量/静态数据段/static 	  只读  data（初始化数据） bss/未初始化数据
+
+		只读数据段		字符串常量 只读  TEXT
+		代码段			只读数据段		TEXT
+		0x00000
+
+7. 函数返回值为指针时，不能返回栈空间中的数据
+
+8. static修饰符
+	8.1. 修饰局部变量
+		将局部变量从栈空间放入静态数据段，生成期长
+	8.2. 修饰全局变量
+		防止重命名，限制变量名只在本文件内起作用
+	8.3. 修饰全局函数
+		防止重命名，限制该函数只在本文件中起作用
+9. const作用
+	1. 只读，建议性符号，不具备强制性,不是常量
+10. 对绝对地址赋值
+	int *p = (int *)0x67a9; p[0] = 0xaa66; (int *)0x67a9 = 0xaa66
+
+11. Linux基础编程
+	11.1 查看文件命令
+		ls -F 按格式查看
+		绿色*：可执行文件，
+		亮蓝色@：链接文件，
+		蓝色/：目录文件
+		file fileName 命令：查看文件类型    find /[dir] -name filename
+	11.2 创建文件
+		touch fileName:创建文件
+		mkdir directoryName:创建目录
+		rm [-i/f] fileName: 删除文件 i:删除有提示 f:强制删除 r:递归删除文件/目录内容
+		rmdir directoryName:删除目录，只能删空目录
+	11.3 链接文件
+		11.3.1
+			文件在linux上被分成两个部分：
+			用户数据(user data): 即文件数据块 data block,是记录文件真实内容的地方
+			元数据(metadata): 文件附加属性 如文件大小，创建时间，所有者等信息
+			在Linux中元数据中的inode号，索引结点号，是文件的唯一标识。系统通过inode找正确的文件数据块
+		11.3.2
+			为解决文件的共享使用，Linux引入了链接，不仅可以解决文件共享使用，还可以隐藏文件路径，增加权限安全，节省内存，创建链接可以给文件和目录创建替代名或别名
+			inode是随文件存在而存在，目录没有，inode 号仅在各文件系统下是唯一的，当 Linux 挂载多个文件系统后将出现 inode 号重复的现象
+			分为硬链接(hard link) :多个文件名对应一个inode号
+				特点： 1.文件有相同的inode号和data block 2.只能对已存在的文件j进行创建
+						3. 不能交叉文件系统进行硬链接创建
+						4. 不能对目录进行创建，只可对文件创建
+						5. 删除一个硬链接文件不影响其他有相同inode号的文件，只是删除一个文件名而已
+						若系统允许对目录创建硬链接，则会产生目录环。
+			软链接(soft link/symbolic link)
+				特点：
+					软链接就是一个普通文件，只是这个文件的用户数据块内容是另一文件路径名的指向
+					软链接有自己的文件属性及q权限等
+					可对不存在的文件或目录创建软链接
+					软链接可交叉文件系统
+					可对目录创建软链接
+					创建软链接时，链接技术i_nlink不会增加
+					删除软链接并不影响被指向的文件，但源文件被删除，则相关软链接被称为死链接(dangling link)若被指向路径文件被重新创建，死链接可恢复为正常链接
+			ln -s target directory/ln target directory --symbolic :创建软链接
+			ln target directory: 创建硬链接
+			df/mount 查看文件系统
+			find 文件路径 -lname 文件名: 在文件路径下查找文件的软链接
+			find 文件路径 -samefile 文件名: 在文件路径下查找文件硬链接
+			find 文件路径 -inum inode号:在文件路径下查找文件硬链接
+			find 文件路径 -type l -ls:查找文件路径下所有软链接
+			https://www.ibm.com/developerworks/cn/linux/l-cn-hardandsymb-links/index.html
+
+
+	11.4 cat more tail head命令
+
+		cat < /dev/stdin > dest.txt 从标准输入文件输入到目标文件
+		cat  /dev/null > dest.txt 删除文件内容
+		cat /etc/passwd | awk -F: '{print $1 "\t" $6}'  | sort > userInfo.txt   awk -F: 以[:]作分割符 取出打印第一列 tab 第六列排序后输出到userInfo.txt
+		\ 链接两行命令
+
+		more 分屏显示
+		f 下一页
+		b 上一页
+		q 退出
+		spacebar 向下显示一屏
+		Enter 向下显示一行
+		/string 查找
+
+
+		head [-n] fileName: 查看首n行
+
+		tail [-n] fileName: 查看末尾n行
+
+	11.5 文件拷贝/移动
+		cp source dest: 拷贝文件
+		cp -r soource dets: 拷贝目录
+		mv source dest： 移动文件
+
+	11.6 文件权限
+		11.6.1
+			r w x
+			0 0 0
+			1 1 1
+			使用8进制数表示
+			100 = 4 读权限
+			010 = 2 写权限
+			001 = 1 执行权限
+			111 = 7 所有权限
+			110 = 6 可读可写
+			101 = 5	可读可执行
+
+			chmod: chnod u+w,g+w,o+w fileName 当前用户,组，其他人增加写权限
+					chmod 555 fileName
+			chgrp
+			chown: chown -R user fileName				将文件的属主修改
+		11.6.2
+			查找文件
+				whereis
+				find
+				locate
+			过滤和统计
+				grep
+				wc
+	11.7 系统相关
+		11.7.1 查看进程
+			ps -e 查看系统进程 -f一个完整的进程列表格式 -auwx按照一定格式展示 -u 查找某个用户启动是进程
+		11.7.2 用户相关
+			切换用户
+			su root
+			sudo 命令行
+			id 查看用户id 所属组id
+			users 当前登录的用户名
+			who 查看当前登录用户的详细信息
+
+			df du 查看磁盘使用情况
+	11.8 gcc编译命令
+
+		-E 预编译(preprocessing) 	 	生成.i文件
+		-S 编译(compilation/compiler)   	生成.s汇编代码
+		-c 汇编(compilation/assembly)   	生成二进制文件.o目标文件,不会链接文件
+		-g 添加调试信息
+		-I[dir]搜索头文件路径   编译时将某个路径下的头文件包含进来
+		-L[dir] 链接 			将指定库文件链接成可执行文件
+
+		gcc test.c -L. -lsub   编译test.c源文件 [-L.]在当前目录下寻找库文件  [-lsub] 库文件名称为 libsub
+
+
+		Linux下链接库时使用-L来指定路径，使用-l来指定库名。
+
+		静态链接库和动态链接库
+		静态链接库： 编译的时候就会将静态链接库包含进来生成可执行文件     格式 .a 发布的时候只需要发布可执行文件即可
+		动态链接库： 运行时调用，加载类库，发布的时候需要一同发布类库文件 格式 .so libname.so.[主版本号.次版本号.发行号]
+		区别是在链接的时候是否需要包含进可执行文件
+
+		-static 静态编译
+		-shared 生成动态文件 进行动态编译 gcc编译默认使用
+		-L dir 库文件搜索中添加路径
+		-fPIC(Position Independent Code) 相对位置无关的目标代码
+
+		生成静态库文件步骤：
+			1. 生成.o目标文件 gcc -c
+			2. 使用 ar crv [库文件名] 目标文件名命令
+			3. 调用静态链接库 gcc file.o -o file.out -L[路径] []
+		生成动态链接库步骤：
+			1. 生成.o目标文件 gcc -fPIC -c
+			2. 使用动态链接库文件 gcc -shared file.o -o file.so
+			3. 调用动态链接库
+				隐式：gcc file.o -o file.out -L[路径]
+				显式： 在代码中声明
+			4. 动态链接库在运行时加载，因此需要把动态链接库文件放在/usr/lib 或者/lib目录下 或者 导入环境变量【export LD_LIBRARY_PATH=库文件路径:$LD_LIBRARY_PATH】
+			第三中方法: 在/etc/ld.so.conf文件里加入我们生成库文件的路径 然后执行/sbin/ldconfig /etc/ld.so.conf   这里面存放的是连接器和加载器搜索共享库时要检查的目录 默认是在/uer/lib /lib中读取的
+
+		解释:
+			库文件是一组预先编译好的函数的集合，可以说是头文件函数原型的实现(可能是机器码)
+			编译时，函数作为外部符号等待链接
+
+	11.9 编译GCC
+		11.9.1 steps:
+				1. 下源码 gcc gmp mpfr mpc
+				2. 先编译 ./configure make
+				m4:	 macro processor 宏处理器类库
+				gmp:
+					The GNU Multiple Precision Arithmetic Library
+					gnu多精度算术运算类库 需要依赖m4
+				mpfr:
+					The MPFR library is a C library for multiple-precision floating-point computations with correct rounding
+					多精度浮点运算的C类库 需要依赖gmp
+				mpc: 复杂高精度运算的数学运算C类库
+				gcc: 需要依赖上面的类库
+
+				tar是打包命令，gz bz2是压缩命令
+			解压tar.bz2的文件
+			tar -jxvf file.tar.bz2
+			解压tar.gz文件
+			tar -zxvf xxx.tar.gz
+			解压tar.xz文件
+			tar -Jxvf file.tar.xz
+
+			编译文件 ./configure && make && make insatll
+
+
+			源文件 -> 库文件
+
+		11.9.2 gdb调试
+			***************笔记未作*************************
+
+		11.9.3 Makefile编译过程
+			**********笔记不全*******************
+			编写软件流程:
+				1. 编写源文件 (vim,source insight)
+				2. 单个文件编译(cc)
+				3. 项目工程文件组织，编译 (make，Makefile)
+				4. 安装
+			Makefile文件
+				1. 规则
+					由若干条规则构成
+					targets: prerequisites  -> hello: main.c func.c func2.c
+					command					-> gcc main.c func.c func2.c hello
+
+					规则中的第一条是最终要生成的文件，该条规则需要用到的文件会递归的从后面的规则中生成
+					Makefile里面生成的文件带有时间戳，如果源文件没有被修改，不会重复执行(通过匹配源文件和生成文件的时间戳？)
+
+					targets:后面可以不跟源文件 被称为 伪代码，make的时候不会执行该规则的命令
+					例如:
+						清除：clean:
+								rm main.c fun.c func2.c
+						安装	：install:
+								cp hello /usr/local/hello
+						卸载：uninstall:
+							rm /usr/local/hello
+					可以通过 make clean 执行
+
+				2. 变量
+					2.1: 自定义变量
+						Obj = main.c func.c func2.c  / Obj := main.c  [:]表示需要递归执行后面的文件
+						使用 ${Obj}
+					2.2: 预定义变量
+						AR:
+						AS
+						CC
+
+		11.9.4 autotools工具使用
+			autoconf
+			automake
+			configure
+			****************笔记未作******************
+
+12. Linux高级编程
+	12.1 Linux内核功能
+		1. 文件管理
+		2. 进程管理
+		3. 设备管理
+		4. 内存管理
+		5. 网络管理
+
+	12.2 IO
+	a. 文件IO
+		i. Input Output
+			1) 输入与输出以应用层为基准
+			2) read(Input) write(output) open close
+				a) open
+					i) 函数open open(char *,flag,mode) fcntl.h 打开或创建文件
+					ii) char * 包含文件名和路径
+					iii) flag  打开文件的方式 只读 只写 读写
+						One. O_RDONLY 只读
+						Two. O_WRONLY 只写
+						Three. O_RDWR 读写
+						Four. O_CREAT 创建一个文件
+						Five. O_EXCL 可测试文件是否存在，搭配O_CREAT使用
+						Six. O_TRUNC 打开文件，把已经存在的内容删掉
+						Seven. O_APPEND 打开文件，追加文件内容，不删除以前的文件
+					iv) mode  创建的文件的权限
+					v) 创建文件时需要，是文件权限的8进制数例如 0777，然而并不是写的权限就是文件权限，系统还要将其与掩码(umask) 做运算， mode & (~umask)
+					vi) 返回值 成功：非负整数 失败：-1； 非负整数表示一个文件描述符，文件描述符是在用户空间，一个进程区别不同的文件的唯一标识，与内核空间文件的inode号有类似的功能
+				b) write
+					i) write(int fd,void *buf,size_t count);
+					ii) count 向文件写多少个字节，fd 文件描述符 buf 要写入的内容
+					iii) 函数返回值 实际写入的字节数
+				c) read
+					i) read(int fd, void * buf, size_t count)
+						buf 读取的数据存放的地方，count 要读取的字节数
+						返回值，实际读取的字节数
+				d) 文件读写位置指针
+					lseek定位函数
+					lseek(int fd,off_t offset,int whence)
+					offset: 偏移量每一读写操作需要偏离基准的距离，单位是字节，可正可负
+					whence: 读取基准点
+						SEEK_SET: 文件开头
+						SEEK_CUR: 当前指针的位置
+						SEEK_END: 文件结尾
+					返回值：成功:文件当前指针的位置 失败:-1
+
+				函数 memset diff
+	b. 标准IO
+		文件IO: 直接调用内核提供的系统调用函数，头文件unistd.h
+		标准IO: 直接调用的是C的库函数，通过库函数间接调用系统调用函数，头文件是: stdio.h
+
+		3个缓存的概念:
+			1. user cache/用户空间的缓存，自己程序中的缓存 想从内核读取的缓存
+			2. lib cache/库缓存 C库函数的缓存 大小1024byte
+				不是立即写入内核缓存中，
+				当缓存中出现'\n'，或缓存的数据大于缓存容量时，才会将数据写入内核缓存
+			3. kernel cache/内核缓存 每打开一个文件，内和在内核空间中会开辟一块缓存
+			4. 文件IO里，打开一个进程，内核会自动打开3个文件描述符0[标准输入],1[标准输出],2[标准错误]，所以后面内核创建的文件描述符是从3开始
+			标准IO里，也有对应的3个文件流[FILE] stdin stdout stder
+			open  fopen
+			close fclose
+					在该文件被关闭之前，刷新缓存种的数据。如果标准I/O库已经为该流自动分配了一个缓存，则释放此缓存
+			lseek fseek,rewind
+			read  多种(全缓存，行缓存，无缓冲)
+			write
+				4.1 fopen函数
+					FILE *fopen(const char *path,const char *mode)
+					4.1.1 FILE定义: struct_IO_FILE /usr/include/libio.h 包含读写缓存的首地址，大小，位置指针
+					4.1.2 mode 类似于文件IO里的flag
+						r/rb: 打开只读文件，文件必须存在
+						r+/r+b: 打开可读写的文件，该文件必须存在
+
+						b: 二进制文件
+						r: 只读方式打开文件，文件必须存在
+						w/a: 只写方式打开文件，文件不存在则创建；区别 w = O_TRUNC a = APPEND
+
+						r+: 读写方式打开，文件必须存在
+						w: 写入方式打开，将文件指针指向文件头并将文件大小截为0，如果文件不存在就尝试创建
+						w+: 读写方式打开，同上
+						a: 写入方式打开，将文件指针指向文件末尾，如果文件不存在尝试创建
+						a+: 读写方式打开，同上
+					4.1.3：
+						默认权限是644 [0666 &(~0022)]
+
+		b.1 读写函数
+			b.1.1 行缓存 遇到换行符[\n]或写满缓存[1024]时，即调用系统调用函数
+				读: fgets gets scanf
+				写: fputs puts printf fprintf sprintf
+
+				char *gets(char *s);
+				int puts(const char *s);
+
+				gets()时不能指定缓存的长度，这样可能造成缓存越界
+				gets()只能从标准输入中读
+				gets并不将新行符存入缓存，fgets将新行符存入缓存
+
+				puts() 只能向标准输出中写，输出时会添加一个新行符，fputs不会添加
+				fputs()
+
+				fprintf printf sprintf
+
+				int fprintf(FILE *stream,"字符串格式")
+					fprintf可以输出到文件中，也可以输出到显示器，可以输出格式化
+					printf 只能输出到显示器中
+
+				int sprintf(char *, "字符串格式")
+					输出内容到一个字符串中，可以输出格式化字符串
+
+			单字符读写
+				fgetc getc getchar
+				fputc putc putchar
+
+				int fgetc(FILE *fp)
+				从文件中读取一个字符
+				参数: 文件流
+				返回值: 正确为读取到的字符，到文件结尾或出错时返回EOF
+
+				int fputc(int c, FILE *fp)
+				功能: 写一个字符到文件中
+				参数: 第一个参数为要写的字符，第二个参数为文件流
+				返回值: 成功则返回输入的字符，出错则返回EOF、
+				fputc是全缓存
+			b.1.2 无缓存
+				stderr
+				只要用户调这个函数，就会将内容写到内核中
+			b.1.3 全缓存
+				只有写满缓存才会调用系统调用函数
+				fread
+				fwrite
+
+				size_t fread(void * ptr,size_t size,size_t number,FILE *stream)
+
+				size_t fwrite(const void *ptr,size_t size, size_t number,FILE *stream)
+
+				ptr: buf 读写的缓存内容
+				size: 读写单元的大小
+				number: 读写的单元个数
+				stream: 读写的文件流
+				返回值: 实际读写的单元数
+				总共读写的字节数  = size * number
+
+
+
+
+			b.1.4 行缓存的读写函数
+				char *fgets(char *s,int size, FILE *stream)
+				第一个参数: 缓存，暂时存放读取到的数据
+				第二个参数: 读的字节数量
+				第三个参数: 读的文件流
+				返回值: 成功读取则为s[缓存的地址]，若已在文件末尾或出错，则为NULL
+
+
+				int fputs(const char *s,FILE *stream);
+				第一个参数: 缓存，要写的内存
+				第二个参数: 写到哪里去
+				返回值: 读取成功则为非负值，若出错则为EOF/-1
+
+			b.1.5 刷新缓存函数
+				fflush(FILE *fp)	把库函数的缓存内容强制写到内核中
+
+			b.1.6 调整读写位置指针函数
+				fseek(FILE *fp,int offset,whence)参数与lseek 是一样的但是返回值不一样
+					lseek: 当前文件的位置指针值
+					fseek: 成功返回0，失败返回-1L
+				rewind(FILE *fp)
+					用于设定流文件位置指示为文件开始，无返回值
+					等价于 fseek(fp,0,SEEK_SET)
+				ftell(FILE *fp)
+					用于取得当前文件的位置，调用成功则为当前文件位置值，出错则为-1L
+
+			fgets()函数返回Null时不能确定是读取完毕还是读取出错了，一下3个函数可以帮助我们
+
+			int feof(FILE *stream)
+				功能: 判断是否已经到文件结束
+				参数: 文件流
+				返回值: 到文件结束，返回为非0，没有则返回0
+			int ferror(FILE *stream)
+				功能: 判断是否读写错误
+				参数: 文件流
+				返回值: 读写错误，返回非0，否则返回0
+			void clearerr(FILE *stream)
+				功能: 清除流错误
+				参数: 文件流
+
+			b.1.7 实现cat命令
+				fgetc  fputc
+				fread  fwrite
+
+13. 静态库和动态库
+	13.1 静态库和动态库优缺点
+		静态库 libxx.a  在编译时就将库编译进可执行程序中
+		 优点: 程序的运行环境不需要外部函数库
+		 缺点: 可执行程序大
+		动态库 又称共享库 libxx.so 在运行时将库加载到可执行程序中
+		 优点: 可执行程序小
+		 缺点: 程序的运行环境必须提供相应的库
+
+	函数库目录 /lib  /usr/lib
+
+14 目录IO
+	14.1 与文件IO对比
+		头文件	dirent.h   sys/types.h
+
+		目录I/O 		文件I/O
+		opendir(只能打开目录)		open
+		mkdir(创建目录)
+
+		readdir(读目录)					read
+
+		rewinddir(调整位置指针到文件开头)	rewind
+		telldir(获取当前位置指针)			ftell
+		seekdir							fseek
+
+		closedir						close
+
+	14.2 函数名称
+		int mkdir(const char *path, mode_t mode)
+			path 想要创建的目录文件路径
+			mode 为该目录的访问权限  生成的权限和umask有关系
+			返回值: 成功创建 返回0 失败：-1
+
+		DIR *opendir(const char* pathname);
+			参数: 打开的目录路径
+			返回值: 成功返回 目录流指针，出错返回NULL
+
+		struct dirent* readdir(DIR *dr);
+			参数: 目录流指针
+			返回值: 成功: 返回struct dirent指针；在目录尾或者出错就返回NULL
+			struct dirent定义在头文件dirent.h中
+			此结构至少包含 ino_t d_ino; inode号和char d_name[] 文件名
+
+			目录里面的信息[子目录/文件]是按照链表的结构存放的，一次调用函数，只会返回链表中的一个数据
+
+15 进程间通信
+	15.1 线程和进程
+		进程间通信
+		 在用户空间，进程间是不能进行通信的  只有通过内核才能完成
+		线程间通信
+		 在用户空间可以通过全局变量来实现
+
+	15.2 进程通讯方式
+		1. 单机模式
+			管道通信: 无名管道 又名管道(文件系统又名)
+			信号通信: 信号的发送 接收 处理
+			IPC(Inter-Process Communication)通信
+				共享内存
+				消息队列
+				信号灯
+		2. 多机通信
+			Socket通信: 一个网络中l两个进程的通信
+
+		3. 管道通信
+			管道是一个特殊的文件，由单向队列实现
+			open函数不能创建管道
+			函数形式: int pipe(int fd[2])
+			功能: 创建管道， 包含头文件 unistd.h
+			返回值: 成功:0;   失败:-1
+			参数: 就是得到的文件描述符，fd[0] 读文件描述符
+			fd[1]写文件描述符
+			有了文件描述符，就可以使用文件I/O的read和write函数了
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

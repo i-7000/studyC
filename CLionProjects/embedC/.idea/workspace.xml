@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="embedC" targetName="embedC" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e7e0e6f8-6537-4b23-8e89-6df1d38adff3" name="Default Changelist" comment="add README.md">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/embedC.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/a.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/CNote.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/embedC.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/embedC.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../.." value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="E:\CProject\CLionProjects\embedC\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="kNFjywJY" />
+  </component>
+  <component name="ProjectId" id="1Vkk7oshdPa8WfGwdGCgAbqmkL2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Font" />
+  </component>
+  <component name="RunManager">
+    <configuration name="embedC" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="embedC" TARGET_NAME="embedC" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="embedC" RUN_TARGET_NAME="embedC">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e7e0e6f8-6537-4b23-8e89-6df1d38adff3" name="Default Changelist" comment="" />
+      <created>1577804315353</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577804315353</updated>
+      <workItem from="1577804316566" duration="4413000" />
+      <workItem from="1577943873482" duration="2938000" />
+      <workItem from="1578017924862" duration="182000" />
+      <workItem from="1578018113469" duration="8000" />
+      <workItem from="1578018144899" duration="3804000" />
+    </task>
+    <task id="LOCAL-00001" summary="inist project">
+      <created>1577804490680</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1577804490680</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add README.md">
+      <created>1577804923696</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1577804923696</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add README.md">
+      <created>1577807084212</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1577807084212</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="inist project" />
+    <MESSAGE value="add README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="add README.md" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="438" y="108" key="#Deployment" timestamp="1577804480097">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="438" y="108" key="#Deployment/0.30.1536.834@0.30.1536.834" timestamp="1577804480097" />
+    <state x="361" y="106" key="#Vim_Emulation" timestamp="1577806031722">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="361" y="106" key="#Vim_Emulation/0.30.1536.834@0.30.1536.834" timestamp="1577806031722" />
+    <state x="223" y="102" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578031471413">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="223" y="102" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.30.1536.834@0.30.1536.834" timestamp="1578031471413" />
+    <state x="504" y="250" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577805819742">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="504" y="250" key="#com.intellij.fileTypes.FileTypeChooser/0.30.1536.834@0.30.1536.834" timestamp="1577805819742" />
+    <state x="477" y="181" key="#embedC" timestamp="1578029990046">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="477" y="181" key="#embedC/0.30.1536.834@0.30.1536.834" timestamp="1578029990046" />
+    <state x="372" y="43" width="946" height="812" key="CommitChangelistDialog2" timestamp="1577807096751">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="372" y="43" width="946" height="812" key="CommitChangelistDialog2/0.30.1536.834@0.30.1536.834" timestamp="1577807096751" />
+    <state x="503" y="208" key="EnvironmentVariablesDialog" timestamp="1578031370918">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="503" y="208" key="EnvironmentVariablesDialog/0.30.1536.834@0.30.1536.834" timestamp="1578031370918" />
+    <state x="549" y="203" key="FileChooserDialogImpl" timestamp="1577806361365">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="549" y="203" key="FileChooserDialogImpl/0.30.1536.834@0.30.1536.834" timestamp="1577806361365" />
+    <state width="1493" height="213" key="GridCell.Tab.0.bottom" timestamp="1578031411324">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1493" height="213" key="GridCell.Tab.0.bottom/0.30.1536.834@0.30.1536.834" timestamp="1578031411324" />
+    <state width="1493" height="213" key="GridCell.Tab.0.center" timestamp="1578031411323">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1493" height="213" key="GridCell.Tab.0.center/0.30.1536.834@0.30.1536.834" timestamp="1578031411323" />
+    <state width="1493" height="213" key="GridCell.Tab.0.left" timestamp="1578031411323">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1493" height="213" key="GridCell.Tab.0.left/0.30.1536.834@0.30.1536.834" timestamp="1578031411323" />
+    <state width="1493" height="213" key="GridCell.Tab.0.right" timestamp="1578031411323">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state width="1493" height="213" key="GridCell.Tab.0.right/0.30.1536.834@0.30.1536.834" timestamp="1578031411323" />
+    <state x="270" y="89" key="SettingsEditor" timestamp="1578018514774">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="270" y="89" key="SettingsEditor/0.30.1536.834@0.30.1536.834" timestamp="1578018514774" />
+    <state x="361" y="180" key="Vcs.Push.Dialog.v2" timestamp="1577807110945">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="361" y="180" key="Vcs.Push.Dialog.v2/0.30.1536.834@0.30.1536.834" timestamp="1577807110945" />
+    <state x="93" y="123" width="1350" height="648" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1577805228879">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="93" y="123" width="1350" height="648" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.30.1536.834@0.30.1536.834" timestamp="1577805228879" />
+    <state x="449" y="271" key="com.intellij.ide.util.TipDialog" timestamp="1578018145270">
+      <screen x="0" y="30" width="1536" height="834" />
+    </state>
+    <state x="449" y="271" key="com.intellij.ide.util.TipDialog/0.30.1536.834@0.30.1536.834" timestamp="1578018145270" />
+  </component>
+</project>
